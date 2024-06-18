@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Lesson;
 
 class LessonController extends Controller
 {
@@ -12,7 +13,10 @@ class LessonController extends Controller
      */
     public function index()
     {
-        //
+        $lessons = Lesson::paginate(25);
+        return inertia('Lessons/Index',[
+            'categories' => $lessons,
+        ]);
     }
 
     /**
