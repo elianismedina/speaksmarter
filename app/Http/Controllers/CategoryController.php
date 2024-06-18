@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Inertia\Response;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(25);
+        return inertia('Categories/Index',[
+            'categories' => $categories,
+        ]);
     }
 
     /**
