@@ -6,6 +6,9 @@ export default {
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+const { user } = usePage().props;
+
 
 defineProps({
     categories: {
@@ -30,22 +33,24 @@ const deleteCategory = (id) => {
         </div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-gray-200"
+                    v-if="user.permissions.includes('create-categories')">
                     <div class="flex justify-between">
                         <Link :href="route('categories.create')"
-                            class="text-white bg-indigo-500 hover:bg-indigo-700 py-2 px-4 rounded-md">
+                            class="text-white bg-indigo-500 hover:bg-indigo-700 py-2 px-4 rounded-md"
+                            v-if="user.permissions.includes('create-categories')">
                         Create Category
                         </Link>
                     </div>
                 </div>
                 <!-- component -->
-                <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-4">
+                <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-4"
+                    v-if="user.permissions.includes('read-categories')">
                     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-4 font-bold text-lg text-gray-700">List of categories
                                 </th>
-
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
