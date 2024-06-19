@@ -39,7 +39,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
       Category::create($request->validated());
-      return redirect(route('categories.index'));
+      return redirect()->route('categories.index');
     }
 
     /**
@@ -52,18 +52,27 @@ class CategoryController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param  int $id
+     * @return Response
+     *
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return inertia('Categories/Edit', ['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param CategoryRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     *
      */
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return redirect()->route('categories.index');
     }
 
     /**
