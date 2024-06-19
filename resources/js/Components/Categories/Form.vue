@@ -43,9 +43,8 @@ defineEmits(['submit']);
         </template>
         <template #actions>
             <PrimaryButton type="submit" :loading="form.processing">
-                {{ updating ? 'Update' : 'Create' }}
+                {{ updating ? 'Update' : 'Save' }}
             </PrimaryButton>
         </template>
-
     </FormSection>
 </template>
