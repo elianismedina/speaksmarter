@@ -64,7 +64,7 @@ const deleteCategory = (id) => {
                                     <div class="flex flex-row-reverse gap-4">
                                         <Link @click="deleteCategory(category.id)"
                                             v-if="user.permissions.includes('delete-categories')"
-                                            class="text-red-400 py-2 px-2">
+                                            class="text-red-400 py-2 px-2" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="h-6 w-6"
                                             x-tooltip="tooltip">
