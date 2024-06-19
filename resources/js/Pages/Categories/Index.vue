@@ -7,8 +7,10 @@ export default {
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { usePage } from '@inertiajs/vue3';
-const { user } = usePage().props;
+import { Inertia } from '@inertiajs/inertia';
 
+
+const { user } = usePage().props;
 
 defineProps({
     categories: {
@@ -20,7 +22,7 @@ defineProps({
 
 const deleteCategory = (id) => {
     if (confirm('Are you sure you want to delete this category?')) {
-        $inertia.delete(route('categories.destroy', id));
+        Inertia.delete(route('categories.destroy', id));
     }
 };
 

@@ -52,8 +52,9 @@ class CategoryController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param  int $id
+     *
      * @return Response
+     * @param Category $category
      *
      */
     public function edit(Category $category)
@@ -65,8 +66,8 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param CategoryRequest $request
-     *
      * @return \Illuminate\Http\RedirectResponse
+     * @param Category $category
      *
      */
     public function update(CategoryRequest $request, Category $category)
@@ -77,9 +78,13 @@ class CategoryController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Category $category
+     * @return Response
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index');
     }
+
 }
