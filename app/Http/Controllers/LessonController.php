@@ -8,14 +8,17 @@ use App\Models\Lesson;
 
 class LessonController extends Controller
 {
+    const NUMBER_OF_ITEMS_PER_PAGE = 6;
     /**
      * Display a listing of the resource.
+     * @return \Inertia\Response
      */
     public function index()
     {
-        $lessons = Lesson::paginate(25);
+        $lessons = Lesson::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
         return inertia('Lessons/Index',[
-            'categories' => $lessons,
+            'lessons' => $lessons,
+
         ]);
     }
 
