@@ -10,6 +10,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '../PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import CollectionSelector from '@/Components/Common/CollectionSelector.vue';
+import { ref } from 'vue';
 
 defineProps({
     form: {
@@ -30,6 +32,10 @@ defineProps({
         required: true,
     },
 });
+const categoriesSelected = ref([]);
+const onCategories = (_categories) => {
+    categoriesSelected.value = _categories;
+};
 defineEmits(['submit']);
 </script>
 <template>
@@ -43,8 +49,8 @@ defineEmits(['submit']);
             {{ updating ? 'Update the selected lesson' : 'Create a new lesson' }}
         </template>
         <template #form>
-            <div class="">
-                <div class="">
+            <div>
+                <div>
                     <InputLabel for="name" :value="updating ? 'Lesson Name' : 'Name'" />
                     <TextInput id="name" type="text" v-model="form.name" :error="form.errors.name" autocomplete="name"
                         class="w-full" />
@@ -67,12 +73,21 @@ defineEmits(['submit']);
                     <SecondaryButton class="mt-2 mr-2" type="button">Upload PDF</SecondaryButton>
                     <InputError :message="$page.props.errors.pdf_uri" class="mt-2" />
                 </div>
-                <div>
-                    <InputLabel for="level_id" :value="updating ? 'Lesson Level' : 'Level'" />
-                    <select class="mt-2 mr-2" name="level_id" id="level_id">
-                        <option v-for="level in levels" :value="level.id">{{ level.name }}</option>
-                    </select>
-                    <InputError :message="$page.props.errors.level_id" class="mt-2" />
+                <div class="flex flex-row gap-4 mt-2">
+                    <div class="w-1/2">
+                        <InputLabel for="level_id" :value="updating ? 'Lesson Level' : 'Level'" />
+                        <select class="mt-2 mr-2 rounded-md" name="level_id" id="level_id">
+                            <option v-for="(level, index) in levels" :key="index" :value="level.id">
+                                {{ level.name }}
+                            </option>
+                        </select>
+                        <InputError :message="$page.props.errors.level_id" class="mt-2" />
+                    </div>
+                    <div class="w-1/2">
+                        <InputLabel for="category_id" :value="updating ? 'Lesson Category' : 'Category'" class="mb-2" />
+                        <CollectionSelector :collection="categories" class="mt-2 mr-2" @onCategories="onCategories" />
+                        <InputError :message="$page.props.errors.category_id" class="mt-2" />
+                    </div>
                 </div>
             </div>
         </template>
